@@ -4,6 +4,8 @@ $(document).ready(function(){
     var myQueryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + "&q=";
     var myGifArray = [];
     var numGifs = 15;
+    var currentTargetGif;
+    var stillImageUrl;
     
     function displayInfo(event) {
         console.log(event);
@@ -24,14 +26,6 @@ $(document).ready(function(){
             }
         });
     };
-
-    // $('.my-gif-image').hover(
-    //     function(event) {
-    //         console.log(event);
-    //     }, function() {
-    //         console.log('mouse leaving');
-    //     }
-    // );
     
     $('.add-search-term').on('click', function() {
         var newButtonText = $('.search-term').val();
@@ -42,12 +36,9 @@ $(document).ready(function(){
 
     $(document).on('click', '.gif-search-button', displayInfo);
     $(document).on('mouseenter', '.my-gif-image', function(event) {
-        var currentTargetGif;
         var i = 0;
         var isFound = false;
-        // for (var i = 0; i < myGifArray.length; i++) {
-        //     if (event.target)
-        // }
+        stillImageUrl = event.currentTarget.src;
         console.log('mouseenter event: ' + event.target.src);
         while (isFound === false && i < myGifArray.length) {
             if (event.currentTarget.src === myGifArray[i].images.downsized_still.url) {
@@ -58,10 +49,8 @@ $(document).ready(function(){
         }
         console.log(currentTargetGif);
         event.currentTarget.src = currentTargetGif.images.downsized.url;
-        //event.target.src = currentTargetGif.images.downsized.url;
-       // console.log(event.target.src);
     });
     $(document).on('mouseleave', '.my-gif-image', function(event) {
-        
-    })
+        event.currentTarget.src = stillImageUrl;
+    });
 });
