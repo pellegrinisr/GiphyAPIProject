@@ -6,7 +6,8 @@ $(document).ready(function(){
     var numGifs = 15;
     var currentTargetGif;
     var stillImageUrl;
-    
+    //function called when user clicks the add-search-term button
+    //gets data from the giphy api
     function displayInfo(event) {
         console.log(event);
         var mySearchTerm = event.target.innerText.trim().replace(' ', '+');
@@ -26,15 +27,22 @@ $(document).ready(function(){
             }
         });
     };
-    
+    //click event handler for the add-search-term button
+    //creates a new button element and appends the button to the page
     $('.add-search-term').on('click', function() {
-        var newButtonText = $('.search-term').val();
-        console.log(newButtonText);
-        var newButton = $('<button>').addClass('gif-search-button btn btn-primary').text(newButtonText);
-        $('.button-additions').append(newButton);
+        //verify that search-term input isn't blank
+        if ($('.search-term').val() != '') {
+            var newButtonText = $('.search-term').val();
+            console.log(newButtonText);
+            var newButton = $('<button>').addClass('gif-search-button btn btn-primary').text(newButtonText);
+            $('.button-additions').append(newButton);
+        }
     });
-
+    //attach event handler to the responsively created buttons
+    //calls the displayInfo function
     $(document).on('click', '.gif-search-button', displayInfo);
+    //mouseenter event handler for gif images in search results
+    //will change the image source from the still image to the moving image
     $(document).on('mouseenter', '.my-gif-image', function(event) {
         var i = 0;
         var isFound = false;
@@ -50,9 +58,13 @@ $(document).ready(function(){
         console.log(currentTargetGif);
         event.currentTarget.src = currentTargetGif.images.downsized.url;
     });
+    //mouseleave event listener for the gif images in search results
+    //changes the image source back to the still image
     $(document).on('mouseleave', '.my-gif-image', function(event) {
         event.currentTarget.src = stillImageUrl;
     });
+    //click event listener for the gif images in the search results
+    //when clicked the gif will be stored in the top div beneath the jumbotron
     $(document).on('click', '.my-gif-image', function(event) {
         //create a new <img> to hold the source of the clicked image
         var newImageTag = $('<img>').addClass('saved');
