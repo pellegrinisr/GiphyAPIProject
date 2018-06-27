@@ -9,7 +9,7 @@ $(document).ready(function(){
     
     function displayInfo(event) {
         console.log(event);
-        var mySearchTerm = event.target.innerText;
+        var mySearchTerm = event.target.innerText.trim().replace(' ', '+');
         console.log(myQueryURL + mySearchTerm);
         $.ajax({
             url: myQueryURL + mySearchTerm,
@@ -53,4 +53,12 @@ $(document).ready(function(){
     $(document).on('mouseleave', '.my-gif-image', function(event) {
         event.currentTarget.src = stillImageUrl;
     });
+    $(document).on('click', '.my-gif-image', function(event) {
+        //create a new <img> to hold the source of the clicked image
+        var newImageTag = $('<img>').addClass('saved');
+        //change the source attribute to the src of the clicked gif
+        $(newImageTag).attr('src', event.currentTarget.src);
+        //prepend it to the saved-gifs div
+        $('.saved-gifs').prepend(newImageTag);
+    })
 });
