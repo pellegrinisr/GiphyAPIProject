@@ -15,14 +15,23 @@ $(document).ready(function(){
         }).then(function(response){
             console.log(response);
             for (var i = 0; i < numGifs; i++) {
-                myGifArray[i] = response.data[i].images.downsized.url;
+                myGifArray[i] = response.data[i];
             }
+            $('.gif-display').html('');
             for (var i = 0; i < myGifArray.length; i++) {
-                var newImageTag = $('<img>').attr('src', myGifArray[i]);
+                var newImageTag = $('<img>').addClass('my-gif-image').attr('src', myGifArray[i].images.downsized_still.url);
                 $('.gif-display').append(newImageTag);
             }
         });
     };
+
+    // $('.my-gif-image').hover(
+    //     function(event) {
+    //         console.log(event);
+    //     }, function() {
+    //         console.log('mouse leaving');
+    //     }
+    // );
     
     $('.add-search-term').on('click', function() {
         var newButtonText = $('.search-term').val();
@@ -32,4 +41,27 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.gif-search-button', displayInfo);
+    $(document).on('mouseenter', '.my-gif-image', function(event) {
+        var currentTargetGif;
+        var i = 0;
+        var isFound = false;
+        // for (var i = 0; i < myGifArray.length; i++) {
+        //     if (event.target)
+        // }
+        console.log('mouseenter event: ' + event.target.src);
+        while (isFound === false && i < myGifArray.length) {
+            if (event.currentTarget.src === myGifArray[i].images.downsized_still.url) {
+                currentTargetGif = myGifArray[i];
+                isFound = true;
+            }
+            i++;
+        }
+        console.log(currentTargetGif);
+        event.currentTarget.src = currentTargetGif.images.downsized.url;
+        //event.target.src = currentTargetGif.images.downsized.url;
+       // console.log(event.target.src);
+    });
+    $(document).on('mouseleave', '.my-gif-image', function(event) {
+        
+    })
 });
