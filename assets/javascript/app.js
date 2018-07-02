@@ -23,7 +23,10 @@ $(document).ready(function(){
             $('.gif-display').html('');
             for (var i = 0; i < myGifArray.length; i++) {
                 var newImageTag = $('<img>').addClass('my-gif-image').attr('src', myGifArray[i].images.downsized_still.url);
-                $('.gif-display').append(newImageTag);
+                var gifRating = $('<div>').addClass('gif-rating').html('Rating: ' + myGifArray[i].rating);
+                var newGifDiv = $('<div>').addClass('new-gif');
+                newGifDiv.append(newImageTag).append(gifRating);
+                $('.gif-display').append(newGifDiv);
             }
         });
     };
