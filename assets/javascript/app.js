@@ -1,4 +1,10 @@
-
+//This application will allow the user to enter a search term or phrase
+//and dynamically create buttons that will trigger calls to the GIPHY API.
+//Clicking these buttons will add still images of the GIFs to the page.
+//When the user hovers over a GIF, it will animate.
+//When they hover off of a GIF, it will revert to the still version.
+//Lastly, when the user clicks on a GIF, the GIF will be stored at the
+//top of the page in its animated form.
 $(document).ready(function(){
     var apiKey = "m4cc9q2uN5odLT2Ah4j4SovzsT1vI2x9";
     var myQueryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + "&q=";
